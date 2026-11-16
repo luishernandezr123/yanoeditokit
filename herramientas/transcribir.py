@@ -13,24 +13,25 @@ for c in ["/Users/reset/bin/ffmpeg", "/opt/homebrew/bin/ffmpeg", "/usr/local/bin
 
 base = pathlib.Path(sys.argv[1]).resolve()
 T = base / "trabajo"; T.mkdir(parents=True, exist_ok=True)
-fuente = next((base / "crudo").glob("*"))
-wav = T / "audio_16k.wav"
-subprocess.run([FF, "-y", "-loglevel", "error", "-i", str(fuente), "-vn", "-ac", "1", "-ar", "16000", str(wav)], check=True)
-
+# Varias tomas en crudo/ = varias partes de un mismo video. Cada palabra guarda de qué archivo viene.
 palabras, lineas = [], []
-try:
-    import mlx_whisper
-    r = mlx_whisper.transcribe(str(wav), path_or_hf_repo="mlx-community/whisper-large-v3-turbo", language="es",
-                               word_timestamps=True, condition_on_previous_text=False, verbose=False)
-    for s in r["segments"]:
-        lineas.append(f"[{s['start']:.2f}–{s['end']:.2f}] {s['text'].strip()}")
-        palabras += [{"texto": w["word"].strip(), "inicio": round(w["start"], 2), "fin": round(w["end"], 2)} for w in s["words"]]
-except ImportError:
-    from faster_whisper import WhisperModel
-    segs, _ = WhisperModel("large-v3", compute_type="int8").transcribe(str(wav), language="es", word_timestamps=True)
-    for s in segs:
-        lineas.append(f"[{s.start:.2f}–{s.end:.2f}] {s.text.strip()}")
-        palabras += [{"texto": w.word.strip(), "inicio": round(w.start, 2), "fin": round(w.end, 2)} for w in s.words]
+for fuente in sorted(x for x in (base / "crudo").iterdir() if not x.name.startswith(".")):
+    wav = T / f"audio_{fuente.stem}.wav"
+    subprocess.run([FF, "-y", "-loglevel", "error", "-i", str(fuente), "-vn", "-ac", "1", "-ar", "16000", str(wav)], check=True)
+    lineas.append(f"## {fuente.name}")
+    try:
+        import mlx_whisper
+        r = mlx_whisper.transcribe(str(wav), path_or_hf_repo="mlx-community/whisper-large-v3-turbo", language="es",
+                                   word_timestamps=True, condition_on_previous_text=False, verbose=False)
+        for s in r["segments"]:
+            lineas.append(f"[{s['start']:.2f}–{s['end']:.2f}] {s['text'].strip()}")
+            palabras += [{"archivo": fuente.name, "texto": w["word"].strip(), "inicio": round(w["start"], 2), "fin": round(w["end"], 2)} for w in s["words"]]
+    except ImportError:
+        from faster_whisper import WhisperModel
+        segs, _ = WhisperModel("large-v3", compute_type="int8").transcribe(str(wav), language="es", word_timestamps=True)
+        for s in segs:
+            lineas.append(f"[{s.start:.2f}–{s.end:.2f}] {s.text.strip()}")
+            palabras += [{"archivo": fuente.name, "texto": w.word.strip(), "inicio": round(w.start, 2), "fin": round(w.end, 2)} for w in s.words]
 
 (T / "palabras.json").write_text(json.dumps(palabras, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 (T / "transcripcion.txt").write_text("\n".join(lineas) + "\n", encoding="utf-8")

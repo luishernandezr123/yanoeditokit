@@ -10,9 +10,9 @@
 - `videos/<nombre>/trabajo/mezcla.wav`: voz, música y efectos juntos.
 
 ## Pasos
-1. Proponer 2 o 3 pistas con permiso de uso.
-2. Mezclar una muestra corta con la voz y medirla con `ffmpeg`.
-3. Dejar la voz claramente por encima (unos 12 a 16 dB).
+1. Proponer 2 o 3 pistas con permiso de uso (skill `sonido`). Para que no aburra: ritmo constante, 100 a 130 BPM.
+2. Correr `python3 herramientas/mezclar.py videos/<nombre> --musica <pista> --bajo 12`: deja `voz.wav`, `musica.wav` y `efectos.wav` (whoosh, golpes y pops en sus tiempos) en `trabajo/audio/`.
+3. Medir con `ffmpeg -af ebur128`: voz en −16 LUFS y música unos 12 dB por debajo.
 
 ## Reglas
 - La música se siente de fondo: ni casi muda ni tapando la voz.
