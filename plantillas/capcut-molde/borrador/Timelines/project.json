@@ -1,0 +1,15 @@
+{
+ "config": {
+  "color_space": -1,
+  "hdr_vivid": false,
+  "mixed_track_mode_on": false,
+  "render_index_track_mode_on": false,
+  "use_float_render": false
+ },
+ "create_time": 0,
+ "id": "",
+ "main_timeline_id": "",
+ "timelines": [],
+ "update_time": 0,
+ "version": 0
+}
