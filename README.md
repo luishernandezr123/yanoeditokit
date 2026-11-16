@@ -8,6 +8,7 @@ Este es el equipo con el que [@soyluchorivero](https://www.instagram.com/soyluch
 
 | Agente | Qué hace |
 |---|---|
+| [luchoeditor](agentes/00-luchoeditor.md) | El orquestador: reparte el trabajo, revisa todo y te entrega el video |
 | [Pietaje](agentes/01-pietaje.md) | Mira la toma completa y anota qué pasa en cada momento |
 | [Transcripción](agentes/02-transcripcion.md) | Escribe lo que dices, palabra por palabra y con su tiempo |
 | [Corte](agentes/03-corte.md) | Quita pausas, errores y repeticiones sin cortar ideas |
@@ -61,6 +62,9 @@ Claude Code y Codex requieren su propio plan o cuenta. Las demás herramientas s
 - [AGENTS.md](AGENTS.md): el equipo, el orden de trabajo y las reglas comunes. Codex lo lee directamente; Claude Code lo lee a través de `CLAUDE.md`.
 - [agentes/](agentes/): un archivo por agente.
 - `.codex/agents/` y `.claude/agents/`: las definiciones para llamar a cada agente por su nombre.
+- `.claude/skills/` y `.agents/skills/`: las skills `sonido` (música y efectos libres con Openverse) y `estilo-pasos`.
+- [herramientas/](herramientas/): `transcribir.py` (Whisper) y `cortar.py` (cortes y video base).
+- [plantillas/remotion-pasos/](plantillas/remotion-pasos/): la plantilla de Remotion con el estilo de pasos numerados.
 - [reglas/](reglas/): tu plantilla de reglas, con tres reglas de Luis como ejemplo, y el registro de aprendizajes.
 - [plantillas/](plantillas/): el `montaje.json` de ejemplo y tu primer encargo.
 

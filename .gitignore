@@ -4,3 +4,7 @@ videos/*
 referencias/*
 !referencias/.gitkeep
 .DS_Store
+plantillas/remotion-pasos/node_modules
+plantillas/remotion-pasos/public/*
+!plantillas/remotion-pasos/public/.gitkeep
+plantillas/remotion-pasos/out

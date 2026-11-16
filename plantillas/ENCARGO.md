@@ -3,15 +3,16 @@
 Pon la toma en `videos/<nombre>/crudo/`, abre esta carpeta en Codex o en Claude Code y pega esto:
 
 ```
-Edita el video que está en videos/<nombre>/crudo/ para un reel vertical 9:16.
+luchoeditor: edita el video de videos/<nombre>/crudo/ para un reel vertical.
+Usa el estilo de la skill estilo-pasos (o las referencias de referencias/).
 
-1. Pietaje y Transcripción: revisen la toma completa y anoten errores, pausas y repeticiones.
+1. Pietaje y Transcripción: revisen la toma y anoten errores y pausas.
 2. Corte: quita pausas y repeticiones, conserva las frases completas y acelera un poco la voz.
-3. Gráficos: título claro y llamativo, y subtítulos centrados que resalten la palabra que digo.
-4. Música: una pista de fondo con energía que no tape mi voz.
-5. CapCut: arma el video en 4K y deja el paquete listo para abrir en CapCut.
+3. Gráficos: título claro, 3 o 4 pasos con su tarjeta y subtítulos palabra por palabra.
+4. Música: una pista CC0 de Openverse que no tape mi voz (skill sonido).
+5. CapCut: renderiza en 4K.
 
-Muéstrame el primer montaje y dime qué comprobaste y qué no pudiste comprobar.
+Antes de entregarme, revisa todo con tu lista y dime qué comprobaste y qué no.
 ```
 
 ## Cuando lo revises
@@ -20,4 +21,4 @@ Corrige con tus palabras y di a quién va la corrección:
 
 > «Gráficos: el subtítulo tapa mi boca, súbelo un poco y mantenlo centrado. Guárdalo como regla».
 
-La coordinadora le pasa la corrección al agente responsable, rehace solo esa parte y la anota en `reglas/APRENDIZAJES.md`.
+luchoeditor le pasa la corrección al agente responsable, rehace solo esa parte y la anota en `reglas/APRENDIZAJES.md`.
