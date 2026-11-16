@@ -1,3 +1,5 @@
+![Yo Ya No Edito: 6 agentes que editan tus videos](assets/portada.jpg)
+
 # Yo Ya No Edito · Kit de 6 agentes para editar tus videos con IA
 
 Este es el equipo con el que [@soyluchorivero](https://www.instagram.com/soyluchorivero/) edita sus reels, simplificado para que lo uses desde cero. Tú grabas y diriges; seis agentes de IA hacen la edición:
@@ -49,16 +51,17 @@ Claude Code y Codex requieren su propio plan o cuenta. Las demás herramientas s
 
 1. Descarga el kit: botón verde **Code → Download ZIP**, o `git clone` si usas git.
 2. Abre la carpeta como proyecto en Claude Code o en Codex.
-3. Pon tu toma en `videos/<nombre>/crudo/`.
-4. Pega el texto de [plantillas/ENCARGO.md](plantillas/ENCARGO.md).
-5. Revisa el resultado en el teléfono. Corrige con tus palabras y di a qué agente va la corrección. Cada corrección se guarda como regla en [reglas/](reglas/).
+3. **Personalízalo:** completa «Mi negocio» en [AGENTS.md](AGENTS.md) y la sección **Personaliza** de cada agente. Los agentes traen solo lo mínimo para funcionar; tú les pones tu marca, tus colores, tu música y tus reglas. También puedes pedirle a tu agente: «Hazme preguntas para personalizar los 6 agentes a mi negocio».
+4. Pon tu toma en `videos/<nombre>/crudo/`.
+5. Pega el texto de [plantillas/ENCARGO.md](plantillas/ENCARGO.md).
+6. Revisa el resultado en el teléfono. Corrige con tus palabras y di a qué agente va la corrección. Cada corrección se guarda como regla en [reglas/](reglas/).
 
 ## Qué hay dentro
 
 - [AGENTS.md](AGENTS.md): el equipo, el orden de trabajo y las reglas comunes. Codex lo lee directamente; Claude Code lo lee a través de `CLAUDE.md`.
 - [agentes/](agentes/): un archivo por agente.
 - `.codex/agents/` y `.claude/agents/`: las definiciones para llamar a cada agente por su nombre.
-- [reglas/](reglas/): las reglas de edición de Luis, como ejemplo para que escribas las tuyas.
+- [reglas/](reglas/): tu plantilla de reglas, con tres reglas de Luis como ejemplo, y el registro de aprendizajes.
 - [plantillas/](plantillas/): el `montaje.json` de ejemplo y tu primer encargo.
 
 Este kit no publica en redes, no compra nada y no se conecta a ninguna cuenta. Tú revisas y decides.

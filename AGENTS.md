@@ -1,49 +1,43 @@
 # Ya No Edito · Equipo de edición con 6 agentes
 
-Tú diriges y el equipo edita. En este proyecto la sesión principal es la **coordinadora**: recibe el video, reparte el trabajo entre los 6 agentes en orden, junta lo que entregan y te muestra el resultado. La persona que dirige revisa y decide; el equipo no publica nada.
+Tú diriges y el equipo edita. La sesión principal coordina: recibe el video, reparte el trabajo entre los 6 agentes en orden, junta lo que entregan y te muestra el resultado. El equipo no publica nada.
+
+## Mi negocio (complétalo)
+- Marca o nombre: [________]
+- A quién le hablo: [________]
+- Tipo de videos: [tutoriales, ventas, opinión, lifestyle…]
+- Redes donde publico: [Instagram, TikTok, YouTube Shorts]
 
 ## El equipo
-
-| # | Agente | Qué hace | Archivo |
-|---|---|---|---|
-| 1 | **Pietaje** | Mira la toma completa y anota qué pasa en cada momento | [agentes/01-pietaje.md](agentes/01-pietaje.md) |
-| 2 | **Transcripción** | Escribe lo que dices, palabra por palabra, con su tiempo | [agentes/02-transcripcion.md](agentes/02-transcripcion.md) |
-| 3 | **Corte** | Quita pausas, errores y repeticiones; conserva frases completas | [agentes/03-corte.md](agentes/03-corte.md) |
-| 4 | **Gráficos** | Pone el título, los subtítulos y los apoyos visuales | [agentes/04-graficos.md](agentes/04-graficos.md) |
-| 5 | **Música** | Elige la música y mezcla voz, música y efectos | [agentes/05-musica.md](agentes/05-musica.md) |
-| 6 | **CapCut** | Arma el video final en 4K y deja el proyecto listo para ajustar en CapCut | [agentes/06-capcut.md](agentes/06-capcut.md) |
+| # | Agente | Qué hace |
+|---|---|---|
+| 1 | [Pietaje](agentes/01-pietaje.md) | Revisa la toma completa |
+| 2 | [Transcripción](agentes/02-transcripcion.md) | Pasa la voz a texto con tiempos |
+| 3 | [Corte](agentes/03-corte.md) | Quita pausas, errores y repeticiones |
+| 4 | [Gráficos](agentes/04-graficos.md) | Título, subtítulos y motions |
+| 5 | [Música](agentes/05-musica.md) | Música y efectos sin tapar la voz |
+| 6 | [CapCut](agentes/06-capcut.md) | Video final y paquete para CapCut |
 
 ## Orden de trabajo
-
-0. **Estilo.** Antes de editar, revisar los videos o capturas de referencia que haya en `referencias/` o en el encargo (Instagram, TikTok o Pinterest). Gráficos y Música toman de ahí el tipo de títulos, subtítulos, motions, música y ritmo, sin copiar marcas ni contenido ajeno.
-1. **Recibir.** Guardar los archivos en `videos/<nombre>/crudo/` sin tocarlos. Si llegan varios archivos juntos, son **tomas de un mismo video**, salvo que se diga otra cosa.
-2. **Entender.** Pietaje y Transcripción trabajan en paralelo sobre la toma original.
-3. **Cortar.** Corte cruza los dos informes y escribe los tramos en `videos/<nombre>/trabajo/montaje.json`.
-4. **Vestir.** Gráficos y Música añaden sus capas al mismo `montaje.json`, sin mover los cortes.
-5. **Armar.** CapCut genera el video final y el paquete editable.
-6. **Revisar.** La coordinadora comprueba el resultado con la lista de abajo y lo muestra. Cada corrección vuelve **solo** al agente responsable.
-7. **Aprender.** Cada corrección de la persona que dirige se guarda en [reglas/APRENDIZAJES.md](reglas/APRENDIZAJES.md) y en el agente responsable, para no repetirla.
+0. **Estilo:** mirar las referencias de `referencias/` (Instagram, TikTok o Pinterest).
+1. **Recibir:** guardar la toma en `videos/<nombre>/crudo/` sin tocarla. Varios archivos juntos son tomas de un mismo video.
+2. **Entender:** Pietaje y Transcripción revisan la toma.
+3. **Cortar:** Corte escribe los tramos en `videos/<nombre>/trabajo/montaje.json`.
+4. **Vestir:** Gráficos y Música añaden sus capas al mismo `montaje.json`.
+5. **Armar:** CapCut genera el video final.
+6. **Revisar:** mostrar el resultado y decir qué se comprobó y qué no.
+7. **Aprender:** cada corrección se guarda en `reglas/APRENDIZAJES.md` y en el agente responsable.
 
 ## Reglas comunes
+- `montaje.json` es la única fuente de verdad ([plantilla](plantillas/montaje.json)).
+- El original no se toca; se trabaja sobre copias.
+- Leer `reglas/MIS_REGLAS.md` antes de cada encargo.
+- Decir siempre qué se comprobó y qué no. No inventar datos ni resultados.
+- Pedir permiso antes de instalar algo, pagar o publicar. No leer ni mostrar claves.
 
-- **Un solo montaje.** `montaje.json` es la única fuente de verdad: tiempos, textos, música y capas. Cualquier cambio de velocidad o de cortes se recalcula desde ahí ([plantilla](plantillas/montaje.json)).
-- **Edición por fuera.** Se monta y se corrige con archivos y scripts. CapCut se abre **una sola vez**, al final, para revisar y exportar. No se edita a mano en la interfaz para iterar.
-- **El original no se toca.** Se trabaja sobre copias en `trabajo/`.
-- **Preferencias.** Leer [reglas/MIS_REGLAS.md](reglas/MIS_REGLAS.md) antes de cada encargo. Las indicaciones del encargo actual mandan sobre esas reglas.
-- **Honestidad.** Cada agente dice qué comprobó y qué no pudo comprobar. Un archivo creado no es un video revisado. No se inventan datos, herramientas ni resultados.
-- **Herramientas.** Usar lo que ya está instalado (ffmpeg, Whisper, Remotion, CapCut). Antes de instalar algo nuevo, pedir permiso. Nada de pagos ni cuentas nuevas sin autorización.
-- **Secretos.** No leer ni imprimir claves o tokens.
-
-## Antes de mostrar el video, comprobar
-
-- Que el video dure lo esperado, tenga la resolución pedida (4K: 2160×3840 vertical o 3840×2160 horizontal) y conserve los cuadros por segundo del original.
-- Que la voz esté sincronizada con los labios al principio, en el medio y al final.
-- Que no queden frases cortadas, falsos arranques ni cuadros congelados.
-- Que el título y los subtítulos se lean en el teléfono sin tapar la cara ni los botones de la red.
-- Que la música se oiga de fondo y nunca tape la voz.
-
-## Cómo se invoca
-
-- **Codex:** las definiciones están en [.codex/agents/](.codex/agents/). Pide «usa el agente pietaje» o similar. Si la interfaz no lo encuentra, lanza un subagente y pásale la ruta del archivo en `agentes/`.
-- **Claude Code:** las definiciones están en [.claude/agents/](.claude/agents/). Claude las usa solo cuando corresponde, o puedes pedirlas por nombre.
-- **Cualquier otra IA:** pega el contenido del archivo del agente como instrucción y adjunta la toma o el informe anterior.
+## Antes de mostrar el video
+- Duración, resolución y sonido correctos.
+- Voz sincronizada con los labios.
+- Sin frases cortadas ni cuadros congelados.
+- Textos legibles en el teléfono, sin tapar la cara.
+- La música se oye y no tapa la voz.
