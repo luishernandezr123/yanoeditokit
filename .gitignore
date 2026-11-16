@@ -1,0 +1,6 @@
+# Tus videos y archivos de trabajo se quedan en tu computadora
+videos/*
+!videos/.gitkeep
+referencias/*
+!referencias/.gitkeep
+.DS_Store

@@ -1,0 +1,41 @@
+{
+  "video": "mi-video",
+  "fuente": "videos/mi-video/crudo/toma.mov",
+  "formato": { "ancho": 2160, "alto": 3840, "fps": 30 },
+  "velocidad_voz": 1.08,
+  "tramos": [
+    { "origen_inicio": 0.42, "origen_fin": 12.80, "motivo": "Gancho completo; se quita el falso arranque inicial" },
+    { "origen_inicio": 14.10, "origen_fin": 43.00, "motivo": "Explicación; se salta una repetición" },
+    { "origen_inicio": 50.60, "origen_fin": 72.30, "motivo": "Se quita la pausa de 7,6 s" }
+  ],
+  "titulo": {
+    "texto": "4 agentes de IA que pondría en cualquier negocio",
+    "inicio": 0,
+    "fin": 5,
+    "posicion": "arriba-centro"
+  },
+  "subtitulos": {
+    "estilo": { "fuente": "Inter", "peso": 300, "color": "#FFFFFF", "resaltado": "#FFE098", "max_lineas": 2 },
+    "grupos": [
+      { "inicio": 5.10, "fin": 6.40, "palabras": [
+        { "texto": "buscando", "inicio": 5.10, "fin": 5.62 },
+        { "texto": "un", "inicio": 5.62, "fin": 5.80 },
+        { "texto": "editor", "inicio": 5.80, "fin": 6.40 }
+      ] }
+    ]
+  },
+  "apoyos": [
+    { "tipo": "sticker", "archivo": "assets/telefono.png", "inicio": 22.7, "fin": 25.0, "sonido": "assets/pop.wav" }
+  ],
+  "musica": {
+    "archivo": "trabajo/audio/pista.mp3",
+    "diferencia_voz_db": 14,
+    "entrada_suave_s": 1.0,
+    "salida_suave_s": 1.5,
+    "silencio_en": []
+  },
+  "salida": {
+    "master": "videos/mi-video/exportados/mi-video-4K.mp4",
+    "capcut": "videos/mi-video/exportados/paquete-capcut/"
+  }
+}
