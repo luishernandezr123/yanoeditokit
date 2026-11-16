@@ -2,6 +2,9 @@
 
 Tú diriges y el equipo edita. **luchoeditor** es el orquestador: recibe tu encargo, reparte el trabajo entre los 6 agentes en orden, revisa cada entrega y te devuelve el video terminado. Nadie publica nada.
 
+## Primer arranque
+Si en la raíz del kit **no existe `.equipo-listo`**, lo primero, antes de cualquier encargo, es la skill **`preparar-equipo`** (`.claude/skills/` o `.agents/skills/`): revisa la computadora con `herramientas/diagnostico.py`, explica qué falta, pide un solo permiso, instala solo lo aceptado y hace una prueba corta. **No se instala nada sin el «sí»** de la persona. Cuando todo funciona, la skill crea `.equipo-listo`.
+
 ## Mi negocio (complétalo)
 - Marca o nombre: [________]
 - A quién le hablo: [________]
@@ -36,6 +39,9 @@ Pietaje  Transcripción  Corte     Gráficos    Música    CapCut
 - `herramientas/cortar.py`: aplica los cortes de `montaje.json` (cada corte al silencio más cercano y alineado al cuadro) y crea el video base vertical.
 - `herramientas/mezclar.py`: voz, música (15 dB bajo la voz) y efectos en pistas separadas.
 - `herramientas/revisar.py`: luchoeditor escucha, mide y mira el video antes de entregarlo. Sin APROBADO no se entrega.
+- `herramientas/diagnostico.py`: revisa qué herramientas hay y qué falta (solo mira, no instala). `--json` para el agente.
+- `herramientas/prueba_equipo.py`: prueba corta de ffmpeg, Whisper y Remotion; si pasa, crea `.equipo-listo`.
+- Skill `preparar-equipo`: el primer arranque (diagnóstico, permiso, instalación y prueba).
 - Skill `sonido`: música y efectos con licencia libre (Openverse).
 - Skill `estilo-pasos` y `plantillas/remotion-pasos/`: el estilo de pasos numerados, en Remotion.
 - Las skills están en `.claude/skills/` (Claude Code) y en `.agents/skills/` (Codex).
@@ -49,6 +55,20 @@ Pietaje  Transcripción  Corte     Gráficos    Música    CapCut
 5. **Armar:** CapCut renderiza el video final.
 6. **Revisar:** luchoeditor aplica su lista de revisión y dice qué se comprobó y qué no.
 7. **Aprender:** cada corrección se guarda en `reglas/APRENDIZAJES.md` y en el agente responsable.
+
+## Pedidos en palabras simples
+La persona no tiene que saber qué herramienta usar. Si te pide algo así, haz esto. Si dice «mi video de videos/clase», el video está en `videos/clase/crudo/`.
+
+| Si te piden… | Haz esto |
+|---|---|
+| «Instala el kit… y prepara mi equipo» | Copia el repositorio (`git clone`, o el ZIP con curl si no hay git) y sigue la skill `preparar-equipo`. |
+| «Preséntame a tu equipo» / «Lee mi negocio y mira mi estilo» | Presenta a los 7 agentes; lee «Mi negocio» y `referencias/`; resume el estilo en 5 puntos y elige la plantilla (normalmente `estilo-pasos`). |
+| «Transcribe mi video» / «Dime dónde hay pausas o errores» | `herramientas/transcribir.py videos/<nombre>` y luego Pietaje: pausas, errores y repeticiones con sus tiempos. |
+| «Córtalo» / «Solo en los silencios» / «Voz más rápida» | Corte: bloques de voz reales, `velocidad_voz` 1.15, tramos en `montaje.json` y `herramientas/cortar.py`. Sin avisos «⚠». |
+| «Ponle título, tarjetas y golpes» / «Muéstrame una foto de cada escena» | Gráficos con la skill `estilo-pasos`: escenas cara/tarjeta, golpes y `npx remotion still` por escena. |
+| «Ponle música… que no tape mi voz, y efectos» | Música con la skill `sonido` (Openverse CC0) y `herramientas/mezclar.py --bajo 15`. Guarda los créditos. |
+| «Revisa todo antes de entregarme» | `herramientas/revisar.py videos/<nombre>`. Si no dice APROBADO, corrige y revisa otra vez. |
+| «Renderízalo en 1080» / «Ármame el proyecto de CapCut» | Render de Remotion con `--scale=1` en `videos/<nombre>/exportados/`; luego `herramientas/capcut_borrador.py`, primero sin `--instalar` y con CapCut cerrado para instalar. |
 
 ## Reglas comunes
 - `montaje.json` es la única fuente de verdad ([plantilla](plantillas/montaje.json)).

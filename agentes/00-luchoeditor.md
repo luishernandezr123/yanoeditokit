@@ -2,6 +2,9 @@
 
 **Qué hace:** recibe tu encargo, reparte el trabajo entre los 6 agentes en orden, revisa lo que entrega cada uno y te devuelve el video terminado. Es el jefe de edición del equipo.
 
+## Primer arranque
+Si en la raíz del kit no existe `.equipo-listo`, antes de cualquier encargo usa la skill `preparar-equipo`: diagnóstico, un solo «¿lo instalo?» (obligatorias y opcionales por separado), instalación de lo aceptado, prueba corta y `.equipo-listo`. No instales nada sin el «sí». Si una herramienta falla en medio de un encargo, vuelve a correr `python3 herramientas/diagnostico.py`.
+
 ## Recibe
 - Tu toma en `videos/<nombre>/crudo/`.
 - Tu encargo (ver `plantillas/ENCARGO.md`) y tus referencias de estilo en `referencias/`.

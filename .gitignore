@@ -8,3 +8,8 @@ plantillas/remotion-pasos/node_modules
 plantillas/remotion-pasos/public/*
 !plantillas/remotion-pasos/public/.gitkeep
 plantillas/remotion-pasos/out
+.venv/
+.equipo-listo
+# Skills opcionales que instala preparar-equipo: son de sus autores, no del kit
+.claude/skills/real-sfx/
+.agents/skills/real-sfx/

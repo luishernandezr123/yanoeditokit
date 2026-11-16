@@ -5,7 +5,19 @@ Uso:  python3 herramientas/transcribir.py videos/<nombre>
 Usa mlx-whisper (Mac con chip Apple) o, si no está, faster-whisper.
 Escribe en videos/<nombre>/trabajo/: audio_16k.wav, palabras.json y transcripcion.txt
 """
-import json, pathlib, subprocess, sys
+import importlib.util, json, os, pathlib, subprocess, sys
+
+# Si este Python no tiene Whisper y el kit tiene su propia .venv (la crea la skill preparar-equipo), se relanza con ella.
+KIT = pathlib.Path(__file__).resolve().parent.parent
+if not any(importlib.util.find_spec(m) for m in ("mlx_whisper", "faster_whisper")):
+    VENV_PY = KIT / ".venv" / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+    if VENV_PY.exists() and not os.environ.get("YANOEDITO_RELANZADO"):
+        os.environ["YANOEDITO_RELANZADO"] = "1"  # evita un bucle si la .venv tampoco tiene Whisper
+        argv = [str(VENV_PY), str(pathlib.Path(__file__).resolve()), *sys.argv[1:]]
+        if os.name == "nt": sys.exit(subprocess.call(argv))
+        os.execv(argv[0], argv)
+    sys.exit("Falta Whisper (mlx-whisper o faster-whisper). Pídele a luchoeditor que use la skill preparar-equipo, "
+             "o corre: python3 herramientas/diagnostico.py")
 
 FF = "ffmpeg"
 for c in ["/Users/reset/bin/ffmpeg", "/opt/homebrew/bin/ffmpeg", "/usr/local/bin/ffmpeg"]:

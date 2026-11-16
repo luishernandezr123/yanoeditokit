@@ -6,6 +6,33 @@ Este es el equipo con el que [@soyluchorivero](https://www.instagram.com/soyluch
 
 **Pietaje → Transcripción → Corte → Gráficos → Música → CapCut**
 
+## Empieza aquí
+
+No descargues nada a mano. Tu agente baja el kit y prepara tu computadora.
+
+1. Instala **Claude Code** (o **Codex**) y crea una carpeta vacía, por ejemplo «Mis videos».
+2. Abre esa carpeta en Claude Code (o en Codex) y pega este mensaje:
+
+   > Instala el kit de https://github.com/luishernandezr123/yanoeditokit en esta carpeta, entra a la carpeta y prepara mi equipo de edición con su skill preparar-equipo. Pídeme permiso antes de instalar.
+
+3. Tu agente revisa tu computadora y te dice qué falta: «toca instalar esto, esto y esto». Separa lo obligatorio de lo opcional y te pregunta **una sola vez** si lo instala. Nada se instala sin tu «sí».
+4. Lo que pide tu contraseña o abre un instalador con ventanas (Homebrew, Node, CapCut) lo haces tú; el agente te explica cada paso.
+5. Al final hace una prueba corta (crea un audio, lo transcribe y saca una foto de la plantilla) y, si todo funciona, deja el archivo `.equipo-listo`.
+6. Cierra y vuelve a abrir Claude Code o Codex **dentro de la carpeta `yanoeditokit`**: así carga a luchoeditor, a los 6 agentes y sus skills.
+
+Cómo copia el kit tu agente (por si quieres hacerlo tú):
+```
+git clone https://github.com/luishernandezr123/yanoeditokit.git
+```
+Si no tienes git:
+```
+curl -L -o yanoeditokit.zip https://github.com/luishernandezr123/yanoeditokit/archive/refs/heads/main.zip
+unzip yanoeditokit.zip && mv yanoeditokit-main yanoeditokit
+```
+En Windows usa `curl.exe` y `tar -xf yanoeditokit.zip` en vez de `unzip`; la carpeta queda como `yanoeditokit-main`.
+
+Para revisar otra vez qué tienes instalado: `python3 herramientas/diagnostico.py` (solo mira, no instala nada).
+
 | Agente | Qué hace |
 |---|---|
 | [luchoeditor](agentes/00-luchoeditor.md) | El orquestador: reparte el trabajo, revisa todo y te entrega el video |
@@ -22,7 +49,7 @@ Este es el equipo con el que [@soyluchorivero](https://www.instagram.com/soyluch
 - **Claude Code / Codex:** programas que ponen a trabajar a la IA dentro de tu computadora. Pueden leer y crear archivos y usar otras herramientas. Claude Code es de Anthropic y Codex es de OpenAI.
 - **Pietaje:** revisar todo el material grabado antes de editar.
 - **Motion:** un gráfico animado, como un título que entra, un sticker que aparece o un texto que se mueve con la voz.
-- **GitHub:** una página para guardar y compartir carpetas de proyectos. De aquí descargas este kit.
+- **GitHub:** una página para guardar y compartir carpetas de proyectos. De aquí tu agente copia este kit.
 
 ## Antes de editar: busca tu estilo
 
@@ -30,7 +57,7 @@ Busca 3 a 5 videos con el estilo que quieres en Instagram, TikTok o Pinterest. F
 
 ## Lo que necesitas instalar
 
-La IA no ve ni escucha un video por sí sola. Necesita herramientas:
+La IA no ve ni escucha un video por sí sola. Necesita herramientas. No las instales a mano: la skill `preparar-equipo` revisa cuáles tienes y te pide permiso para instalar las que faltan.
 
 | Para | Herramienta | Qué hace |
 |---|---|---|
@@ -38,20 +65,18 @@ La IA no ve ni escucha un video por sí sola. Necesita herramientas:
 | Ver | **ffmpeg** (incluye ffprobe) | Saca fotogramas del video para que la IA los mire y lee sus datos técnicos |
 | Escuchar | **Whisper** (`mlx-whisper` en Mac con chip Apple, o `faster-whisper`) | Convierte tu voz en texto, con el tiempo de cada palabra |
 | Cortar y mezclar | **ffmpeg** | Corta, acelera la voz, mezcla la música y mide el volumen |
-| Animar (opcional) | **Node.js** + **Remotion** | Crea títulos, subtítulos y motions con código y renderiza en 4K |
-| Ajustar y exportar | **CapCut** (escritorio) | Revisas el resultado una vez y exportas |
+| Animar y renderizar | **Node.js** + **Remotion** | Crea títulos, subtítulos y motions con código y renderiza en 4K |
+| Ajustar y exportar (opcional) | **CapCut** (escritorio) | Revisas el resultado una vez y exportas |
 | Scripts | **Python 3** | Lo usan los agentes para tareas de apoyo |
-
-**Atajo:** abre esta carpeta en Claude Code o Codex y escribe:
-
-> Revisa si tengo ffmpeg, Whisper, Python, Node y CapCut. Dime qué falta y cómo instalarlo en mi computadora, paso a paso.
+| Música y efectos | **Openverse** | Biblioteca gratis de sonidos libres (CC0). Es una página: no se instala |
+| Extras (opcional) | **Real SFX** y **Earshot** | Efectos grabados de verdad en el cuadro exacto, y «oídos» para que la IA revise la mezcla |
 
 Claude Code y Codex requieren su propio plan o cuenta. Las demás herramientas son gratuitas.
 
 ## Cómo usarlo
 
-1. Descarga el kit: botón verde **Code → Download ZIP**, o `git clone` si usas git.
-2. Abre la carpeta como proyecto en Claude Code o en Codex.
+1. Prepara tu equipo con los pasos de [Empieza aquí](#empieza-aquí).
+2. Abre la carpeta `yanoeditokit` como proyecto en Claude Code o en Codex.
 3. **Personalízalo:** completa «Mi negocio» en [AGENTS.md](AGENTS.md) y la sección **Personaliza** de cada agente. Los agentes traen solo lo mínimo para funcionar; tú les pones tu marca, tus colores, tu música y tus reglas. También puedes pedirle a tu agente: «Hazme preguntas para personalizar los 6 agentes a mi negocio».
 4. Pon tu toma en `videos/<nombre>/crudo/`.
 5. Pega el texto de [plantillas/ENCARGO.md](plantillas/ENCARGO.md).
@@ -62,8 +87,8 @@ Claude Code y Codex requieren su propio plan o cuenta. Las demás herramientas s
 - [AGENTS.md](AGENTS.md): el equipo, el orden de trabajo y las reglas comunes. Codex lo lee directamente; Claude Code lo lee a través de `CLAUDE.md`.
 - [agentes/](agentes/): un archivo por agente.
 - `.codex/agents/` y `.claude/agents/`: las definiciones para llamar a cada agente por su nombre.
-- `.claude/skills/` y `.agents/skills/`: las skills `sonido` (música y efectos libres con Openverse) y `estilo-pasos`.
-- [herramientas/](herramientas/): `transcribir.py` (Whisper) y `cortar.py` (cortes y video base).
+- `.claude/skills/` y `.agents/skills/`: las skills `preparar-equipo` (revisa e instala lo que falta), `sonido` (música y efectos libres con Openverse) y `estilo-pasos`.
+- [herramientas/](herramientas/): `diagnostico.py` (qué tienes y qué falta), `prueba_equipo.py` (prueba corta del equipo), `transcribir.py` (Whisper), `cortar.py` (cortes y video base), `mezclar.py` (voz, música y efectos en pistas separadas) y `revisar.py` (luchoeditor escucha y mira el video antes de entregarlo).
 - [plantillas/remotion-pasos/](plantillas/remotion-pasos/): la plantilla de Remotion con el estilo de pasos numerados.
 - [reglas/](reglas/): tu plantilla de reglas, con tres reglas de Luis como ejemplo, y el registro de aprendizajes.
 - [plantillas/](plantillas/): el `montaje.json` de ejemplo y tu primer encargo.
