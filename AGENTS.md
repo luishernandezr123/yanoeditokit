@@ -63,6 +63,8 @@ La persona no tiene que saber qué herramienta usar. Si te pide algo así, haz e
 |---|---|
 | «Instala el kit… y prepara mi equipo» | Copia el repositorio (`git clone`, o el ZIP con curl si no hay git) y sigue la skill `preparar-equipo`. |
 | «Preséntame a tu equipo» / «Lee mi negocio y mira mi estilo» | Presenta a los 7 agentes; lee «Mi negocio» y `referencias/`; resume el estilo en 5 puntos y elige la plantilla (normalmente `estilo-pasos`). |
+| «Hazme preguntas para llenar mi negocio» | Pregunta, de una en una: marca, a quién le habla, tipo de videos y redes. Guarda las respuestas en «Mi negocio» de este archivo. |
+| «Analiza este video y dime cómo es su estilo: [link]» | Intenta bajar el video a `referencias/` (por ejemplo con `yt-dlp`, si está; pide permiso antes de instalarlo). Saca fotos con ffmpeg y describe el estilo en 5 puntos: cómo abre, textos, colores, ritmo y sonido. Si el link no se puede abrir, pide a la persona que guarde el video o capturas en `referencias/`. Se copia el estilo, no el contenido. |
 | «Transcribe mi video» / «Dime dónde hay pausas o errores» | `herramientas/transcribir.py videos/<nombre>` y luego Pietaje: pausas, errores y repeticiones con sus tiempos. |
 | «Córtalo» / «Solo en los silencios» / «Voz más rápida» | Corte: bloques de voz reales, `velocidad_voz` 1.15, tramos en `montaje.json` y `herramientas/cortar.py`. Sin avisos «⚠». |
 | «Ponle título, tarjetas y golpes» / «Muéstrame una foto de cada escena» | Gráficos con la skill `estilo-pasos`: escenas cara/tarjeta, golpes y `npx remotion still` por escena. |
