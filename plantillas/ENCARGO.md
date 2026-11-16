@@ -3,9 +3,9 @@
 Pon la toma en `videos/<nombre>/crudo/`, abre esta carpeta en Codex o en Claude Code y pega esto:
 
 ```
-luchoeditor: edita mi video de videos/<nombre> para un reel, con el estilo pasos.
-Córtalo en los silencios, ponle título, tarjetas, golpes y música que no tape mi voz.
-Revisa todo y ármame el proyecto de CapCut. Dime qué comprobaste y qué no.
+luchoeditor: edita mi video de la carpeta videos/<nombre>, con mi estilo.
+Quítale lo que sobra, ponle título, textos y música que no tape mi voz.
+Revisa todo y déjamelo en CapCut. Dime qué comprobaste y qué no.
 ```
 
 ## Cuando lo revises
