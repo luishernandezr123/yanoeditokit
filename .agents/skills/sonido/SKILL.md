@@ -23,9 +23,9 @@ Anota en `videos/<nombre>/trabajo/audio/CREDITOS.md`: título, autor, licencia y
 ## 3. Preparar la mezcla
 - Repetir la música hasta cubrir el video, con entrada y salida suaves:
 ```
-ffmpeg -stream_loop 2 -i musica-original.mp3 -t <duración> -af "afade=t=in:d=1.5,afade=t=out:st=<duración-2.5>:d=2.5,loudnorm=I=-30:TP=-6" musica.wav
+ffmpeg -stream_loop 2 -i musica-original.mp3 -t <duración> -af "afade=t=in:d=1.5,afade=t=out:st=<duración-2.5>:d=2.5,loudnorm=I=-31:TP=-6" musica.wav
 ```
-- La voz queda en −16 LUFS y la música en −30: unos 14 dB por debajo.
+- La voz queda en −16 LUFS y la música en −31: unos 15 dB por debajo (o usa herramientas/mezclar.py --bajo 15).
 - Efectos propios sin licencia:
 ```
 ffmpeg -f lavfi -i "anoisesrc=d=0.6:c=pink:a=0.9" -af "highpass=f=400,lowpass=f=5000,afade=t=in:d=0.25,afade=t=out:st=0.3:d=0.3" whoosh.wav

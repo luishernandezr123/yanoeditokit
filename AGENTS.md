@@ -33,7 +33,9 @@ Pietaje  Transcripción  Corte     Gráficos    Música    CapCut
 
 ## Herramientas y recetas
 - `herramientas/transcribir.py`: voz a texto con el tiempo de cada palabra (Whisper).
-- `herramientas/cortar.py`: aplica los cortes de `montaje.json` y crea el video base vertical.
+- `herramientas/cortar.py`: aplica los cortes de `montaje.json` (cada corte al silencio más cercano y alineado al cuadro) y crea el video base vertical.
+- `herramientas/mezclar.py`: voz, música (15 dB bajo la voz) y efectos en pistas separadas.
+- `herramientas/revisar.py`: luchoeditor escucha, mide y mira el video antes de entregarlo. Sin APROBADO no se entrega.
 - Skill `sonido`: música y efectos con licencia libre (Openverse).
 - Skill `estilo-pasos` y `plantillas/remotion-pasos/`: el estilo de pasos numerados, en Remotion.
 - Las skills están en `.claude/skills/` (Claude Code) y en `.agents/skills/` (Codex).

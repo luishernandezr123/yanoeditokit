@@ -9,10 +9,11 @@ Plantilla de Remotion en `plantillas/remotion-pasos/`. Todo se controla desde `v
 Ejemplo real completo: `videos/prueba-descarga/trabajo/montaje.json` (si existe en tu Mac).
 
 ## Reglas para que no aburra
-- Voz a **1,15×** y sin pausas: parte los tramos en cada silencio de más de 0,35 s (`silencedetect`) y marca esas partes con `"pausa": true`.
+- Voz a **1,15×**. Corta por **bloques de voz reales**: lo que suena entre dos silencios medidos con el audio, no con los tiempos de Whisper. Las pausas de más de 0,30 s quedan en unos 0,18 s; marca esos tramos con `"pausa": true` (sin zoom).
+- Una frase que no se entiende se quita entera. Si cortas dentro de un bloque, prueba la unión con Whisper antes.
 - Alterna el modo cada 3 a 8 segundos: `cara` (cara grande) ↔ `tarjeta` (cara chica abajo y una tarjeta arriba). Si hay grabación de pantalla, `pantalla`.
 - Un **golpe** (texto grande de color) en las frases fuertes, 4 a 8 por video, solo en escenas `cara` o `pantalla`.
-- La música se siente: 12 dB bajo la voz. Whoosh en cada cambio, golpe sonoro en cada golpe, pop en cada línea de tarjeta (lo hace `mezclar.py`).
+- La música se siente sin tapar: 15 dB bajo la voz. Whoosh en cada cambio, golpe sonoro en cada golpe, pop en cada línea de tarjeta (lo hace `mezclar.py`).
 
 ## 1. Escribe en montaje.json (tiempos en segundos de la toma original)
 ```json
@@ -42,9 +43,10 @@ Ejemplo real completo: `videos/prueba-descarga/trabajo/montaje.json` (si existe 
 ## 2. Corta y mezcla
 ```
 python3 herramientas/cortar.py videos/<nombre>
-python3 herramientas/mezclar.py videos/<nombre> --musica videos/<nombre>/trabajo/audio/musica-original.mp3 --bajo 12
+python3 herramientas/mezclar.py videos/<nombre> --musica videos/<nombre>/trabajo/audio/musica-original.mp3 --bajo 15
+python3 herramientas/revisar.py videos/<nombre>
 ```
-Revisa la lista de palabras que queda en `montaje.json`: sin palabras repetidas ni faltantes.
+`cortar.py` no debe mostrar «⚠ corte sobre voz» y `revisar.py` debe decir APROBADO. Revisa las uniones que marque.
 
 ## 3. Copia a la plantilla y renderiza
 Copia `base-4k.mp4` (como `base.mp4`), `audio/musica.wav`, `audio/efectos.wav` y `montaje.json` a `plantillas/remotion-pasos/public/` (copias o enlaces duros; los enlaces simbólicos fallan). Luego:

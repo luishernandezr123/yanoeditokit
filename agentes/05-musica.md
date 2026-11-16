@@ -11,11 +11,11 @@
 
 ## Pasos
 1. Proponer 2 o 3 pistas con permiso de uso (skill `sonido`). Para que no aburra: ritmo constante, 100 a 130 BPM.
-2. Correr `python3 herramientas/mezclar.py videos/<nombre> --musica <pista> --bajo 12`: deja `voz.wav`, `musica.wav` y `efectos.wav` (whoosh, golpes y pops en sus tiempos) en `trabajo/audio/`.
-3. Medir con `ffmpeg -af ebur128`: voz en −16 LUFS y música unos 12 dB por debajo.
+2. Correr `python3 herramientas/mezclar.py videos/<nombre> --musica <pista> --bajo 15`: deja `voz.wav`, `musica.wav` y `efectos.wav` (whoosh, golpes y pops en sus tiempos) en `trabajo/audio/`.
+3. Medir con `ffmpeg -af ebur128`: voz en −16 LUFS y música unos 15 dB por debajo.
 
 ## Reglas
-- La música se siente de fondo: ni casi muda ni tapando la voz.
+- La música se siente de fondo: ni casi muda ni tapando la voz. Punto de partida: 15 dB bajo la voz.
 - Silencio cuando entra una reacción o un inserto con diálogo.
 - No usar música sin permiso. No comprar nada sin autorización.
 

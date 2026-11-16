@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Agente Música · deja la voz, la música y los efectos en pistas separadas, listos para Remotion y CapCut.
 
-Uso:  python3 herramientas/mezclar.py videos/<nombre> --musica <archivo de música> [--bajo 12]
+Uso:  python3 herramientas/mezclar.py videos/<nombre> --musica <archivo de música> [--bajo 15]
 
 Lee videos/<nombre>/trabajo/montaje.json (después de cortar.py) y base-4k.mp4. Escribe en trabajo/audio/:
   voz.wav      la voz ya cortada y acelerada (sale de base-4k.mp4, a −16 LUFS)
   musica.wav   la música repetida hasta cubrir el reel, con entrada y salida suaves,
-               --bajo dB por debajo de la voz (12 = se siente; 14–16 = más discreta)
+               --bajo dB por debajo de la voz (15 por defecto; 12 = más presente, 16 = más discreta)
   efectos.wav  whoosh en cada cambio de escena o paso, golpe en cada "golpe" y pop cuando aparece una línea
 Los efectos se generan aquí con ffmpeg: no necesitan licencia.
 """
@@ -17,7 +17,7 @@ for c in ["/Users/reset/bin/ffmpeg", "/opt/homebrew/bin/ffmpeg", "/usr/local/bin
     if pathlib.Path(c).exists(): FF = c; break
 
 ap = argparse.ArgumentParser()
-ap.add_argument("video"); ap.add_argument("--musica", required=True); ap.add_argument("--bajo", type=float, default=12)
+ap.add_argument("video"); ap.add_argument("--musica", required=True); ap.add_argument("--bajo", type=float, default=15)
 a = ap.parse_args()
 T = pathlib.Path(a.video).resolve() / "trabajo"
 A = T / "audio"; A.mkdir(exist_ok=True)

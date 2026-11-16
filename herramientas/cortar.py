@@ -7,7 +7,8 @@ Lee en videos/<nombre>/trabajo/:
   palabras.json  (de transcribir.py: texto, inicio, fin en segundos de la toma)
   montaje.json   (lo escribe el agente) con:
      "tramos": [{"origen_inicio": s, "origen_fin": s, "motivo": "..."}]
-     "velocidad_voz": 1.08
+     "velocidad_voz": 1.15
+     "ajustar_cortes": 0.12  (busca el punto más silencioso a ±0,12 s de cada corte; "fijo": true en un tramo lo respeta)
      "correcciones": {"cloud": "Claude", ...}       (opcional)
      "titulo": {"texto", "etiqueta", "origen_fin"}
      "pasos": [{"n", "nombre", "origen", "tarjeta": {...}}]  (tiempos en segundos de la toma)
@@ -22,13 +23,62 @@ FF = "ffmpeg"
 for c in ["/Users/reset/bin/ffmpeg", "/opt/homebrew/bin/ffmpeg", "/usr/local/bin/ffmpeg"]:
     if pathlib.Path(c).exists(): FF = c; break
 
+FP = "ffprobe"
+for c in [str(pathlib.Path(FF).with_name("ffprobe")), "/opt/homebrew/bin/ffprobe", "/usr/local/bin/ffprobe",
+          "/Users/reset/.local/share/luis-youtube/bin/ffprobe"]:
+    if pathlib.Path(c).exists(): FP = c; break
+
+
+def audio_de(fuente):
+    """Audio mono a 16 kHz y cuántos segundos empieza después del video (mismo reloj que transcribir.py)."""
+    import array
+    r = subprocess.run([FP, "-v", "error", "-show_entries", "stream=codec_type,start_time", "-of", "json", str(fuente)],
+                       capture_output=True, text=True)
+    st = {x["codec_type"]: float(x.get("start_time") or 0) for x in json.loads(r.stdout or "{}").get("streams", [])}
+    d = st.get("audio", 0) - st.get("video", 0) if "video" in st else 0.0
+    crudo = subprocess.run([FF, "-loglevel", "error", "-i", str(fuente), "-vn", "-ac", "1", "-ar", "16000", "-f", "f32le", "-"],
+                           capture_output=True).stdout
+    return array.array("f", crudo), d
+
+
+def nivel(muestras, d, t):
+    """Nivel en dB de 20 ms de audio alrededor del segundo t (reloj del video)."""
+    import math
+    i = int((t - d) * 16000)
+    v = muestras[max(0, i - 160):max(0, i + 160)]
+    return 20 * math.log10(math.sqrt(sum(x * x for x in v) / len(v)) + 1e-9) if len(v) else -120.0
+
+
+def al_silencio(muestras, d, t, margen):
+    """Mueve un corte al punto más silencioso a menos de `margen` segundos, para no mochar palabras."""
+    pasos = [t + k * 0.01 for k in range(-int(margen * 100), int(margen * 100) + 1)]
+    return round(min(pasos, key=lambda x: (nivel(muestras, d, x), abs(x - t))), 2)
+
+
 base = pathlib.Path(sys.argv[1]).resolve()
 T = base / "trabajo"
 m = json.loads((T / "montaje.json").read_text(encoding="utf-8"))
 crudos = sorted(x for x in (base / "crudo").iterdir() if not x.name.startswith("."))
 # Cada tramo puede decir de qué toma sale ("archivo"); si no, se usa la primera.
-tramos = [(t["origen_inicio"], t["origen_fin"]) for t in m["tramos"]]
 archivos = [t.get("archivo", crudos[0].name) for t in m["tramos"]]
+# Cada corte se ajusta al punto más silencioso cercano ("ajustar_cortes": segundos de búsqueda; 0 = no ajustar)
+margen = float(m.get("ajustar_cortes", 0.12))
+audios, avisos = {}, []
+for t, f in zip(m["tramos"], archivos):
+    if f not in audios: audios[f] = audio_de(base / "crudo" / f)
+    mu, d = audios[f]
+    if margen and not t.get("fijo") and not t.get("ajustado"):  # se ajusta una sola vez
+        t["origen_inicio"] = al_silencio(mu, d, t["origen_inicio"], margen)
+        t["origen_fin"] = al_silencio(mu, d, t["origen_fin"], margen)
+        t["ajustado"] = True
+    for lado in ("origen_inicio", "origen_fin"):
+        n = nivel(mu, d, t[lado])
+        if n > -40: avisos.append(f"  ⚠ corte sobre voz ({n:.0f} dB) en {f} {t[lado]:.2f} s ({t.get('motivo', '')})")
+# Alinear cada corte a un cuadro (1/30 s): así audio y video duran lo mismo y los subtítulos no se corren
+for t in m["tramos"]:
+    t["origen_inicio"] = round(round(t["origen_inicio"] * 30) / 30, 4)
+    t["origen_fin"] = round(round(t["origen_fin"] * 30) / 30, 4)
+tramos = [(t["origen_inicio"], t["origen_fin"]) for t in m["tramos"]]
 vel = float(m.get("velocidad_voz", 1.0))
 corr = {k.lower(): v for k, v in m.get("correcciones", {}).items()}
 
@@ -115,4 +165,5 @@ if not salida.exists() or "--rehacer" in sys.argv:
     fc = parts + f"{cat}concat=n={len(tramos)}:v=1:a=1[vc][ac];[vc]setpts=PTS/{vel},fps=30[vo];[ac]atempo={vel},loudnorm=I=-16:TP=-1.5[ao]"
     subprocess.run([FF, "-y", "-loglevel", "error", *entradas, "-filter_complex", fc, "-map", "[vo]", "-map", "[ao]",
                     "-c:v", "h264_videotoolbox", "-b:v", "45M", "-c:a", "aac", "-b:a", "256k", str(salida)], check=True)
-print(f"Listo: {m['duracion']} s de reel, {len(palabras)} palabras, {len(m.get('pasos', []))} pasos.")
+print(f"Listo: {m['duracion']} s de reel, {len(palabras)} palabras, {len(m.get('pasos', []))} pasos, {len(m.get('escenas', []))} escenas.")
+print("\n".join(avisos) if avisos else "Cortes: todos caen en silencio.")

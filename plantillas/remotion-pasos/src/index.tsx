@@ -80,8 +80,8 @@ const Tarjeta: React.FC<{d: TarjetaDef; t: number; t0: number}> = ({d, t, t0}) =
   );
   if (d.tipo === 'chat') return (
     <Ventana titulo={d.titulo}>
-      {d.lineas.map((x, i) => {const k = ap(cuando(i, 0.5 + i * 1.4)); return (
-        <div key={i} style={{opacity: k, transform: `translateY(${30 * (1 - k)}px) scale(${0.92 + 0.08 * k})`, transformOrigin: 'left center', marginBottom: 22, padding: '22px 28px', borderRadius: 22, background: encendida(i) ? C.azulSuave : '#F1F1EE', fontFamily: SANS, fontWeight: 700, fontSize: 54, color: C.tinta}}>{x}</div>
+      {d.lineas.map((x, i) => {const k = ap(cuando(i, 0.5 + i * 1.4)); const fantasma = !!d.aparece; return (
+        <div key={i} style={{opacity: fantasma ? 0.25 + 0.75 * k : k, transform: fantasma ? `scale(${0.97 + 0.03 * k})` : `translateY(${30 * (1 - k)}px) scale(${0.92 + 0.08 * k})`, transformOrigin: 'left center', marginBottom: 14, padding: '16px 26px', borderRadius: 20, background: k > 0.5 ? C.azulSuave : '#F1F1EE', fontFamily: SANS, fontWeight: 700, fontSize: 48, color: C.tinta}}>{x}</div>
       );})}
       {d.final && <div style={{opacity: ap(ultima + 0.9), fontFamily: SANS, fontWeight: 800, fontSize: 48, color: '#E11D48'}}>{d.final}</div>}
     </Ventana>
@@ -97,7 +97,7 @@ const Tarjeta: React.FC<{d: TarjetaDef; t: number; t0: number}> = ({d, t, t0}) =
   return (
     <Ventana titulo={d.titulo}>
       {d.lineas.map((x, i) => {const s0 = cuando(i, 0.4 + i * 1.2); const k = ap(s0); const activa = t >= s0 && (i === d.lineas.length - 1 || t < cuando(i + 1, 0.4 + (i + 1) * 1.2)); return (
-        <div key={x} style={{display: 'flex', alignItems: 'center', gap: 28, marginBottom: 40, opacity: k, transform: `translateX(${50 * (1 - k)}px)`}}>
+        <div key={x} style={{display: 'flex', alignItems: 'center', gap: 28, marginBottom: 40, opacity: d.aparece ? 0.25 + 0.75 * k : k, transform: d.aparece ? 'none' : `translateX(${50 * (1 - k)}px)`}}>
           <div style={{width: 96, height: 96, borderRadius: 24, background: activa ? C.azul : C.tinta, color: C.blanco, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: SANS, fontWeight: 800, fontSize: 50, transform: `scale(${activa ? 1.08 : 1})`}}>{i + 1}</div>
           <div style={{fontFamily: SANS, fontWeight: 800, fontSize: 60, lineHeight: 1.1, color: activa ? C.tinta : '#3A3A3A'}}>{x}</div>
         </div>
